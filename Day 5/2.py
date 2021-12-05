@@ -1,5 +1,7 @@
+# it took my computer about an hour to compute this, but the answer was correct...
+
 file = open("input.txt")
-holes = open("holes.txt", "w")
+holes = open("holes.txt", "w") # using a file to avoid memory error
 
 vents = [i.strip() for i in file]
 
@@ -12,22 +14,10 @@ def horizontal(line): # str[][] line
         return True
     return False
 
-#I = 0
-
 for i in vents:
     splt = i.split(" -> ")
     splt = [splt[0].split(","), splt[1].split(",")] # ex.: [ ['1', '1'], ['1, 3'] ]
-    #print(splt, i)
     X, Y = 1, 1
-    #if int(splt[0][0]) > int(splt[1][0]):
-    #    X = -1
-    #if int(splt[0][1]) > int(splt[1][1]):
-    #    Y = -1
-    #if horizontal(splt):
-    #    for x in range(int(splt[0][0]), int(splt[1][0]) + X, X):
-    #        for y in range(int(splt[0][1]), int(splt[1][1]) + Y, Y):
-    #            holes.write(str(x) + "," + str(y)+".")
-    #else:
     current = splt[0]
     holes.write(splt[0][0]+","+splt[0][1]+"\n")
     while not ( int(current[0]) == int(splt[1][0]) and int(current[1]) == int(splt[1][1]) ):
@@ -39,10 +29,7 @@ for i in vents:
             current[1] = str(int(current[1])+1)
         elif int(current[1]) > int(splt[1][1]):
             current[1] = str(int(current[1])-1)
-        #print(current, splt[1], i)
         holes.write(current[0]+","+current[1]+"\n")
-    #print(I)
-    #I += 1
 
 holes.close()
 file_2 = open("holes.txt")
@@ -59,7 +46,7 @@ for i in Holes:
     if number > 1:
         overlaps.append(i)
     if I % 1000 == 0:
-        print(I, "/", len(Holes))
+        print(I, "/", len(Holes)) # printing out proggress to conserve sanity
     I += 1
 
 print(len(list(set(overlaps))))
